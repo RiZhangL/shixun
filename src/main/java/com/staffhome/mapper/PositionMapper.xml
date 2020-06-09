@@ -5,29 +5,32 @@
 <mapper namespace="com.staffhome.mapper.PositionMapper">
 
 	<insert id="addPosition" parameterType="Position">
-		insert into post(name,info) values(#{name},#{info})
+		insert into
+		post(name,info,money) values(#{name},#{info},#{money})
 	</insert>
 
-	<delete id="deletePosition" parameterType="String">
+	<delete id="deletePosition" parameterType="int">
 		delete from
 		post
 		where
-		name=#{name}
+		id=#{id}
 	</delete>
 
 	<update id="updatePosition" parameterType="Position">
 		update post
 		set
-		name=#{name},info=#{info} where id=#{id}
+		name=#{name},info=#{info},money=#{money} where id=#{id}
 	</update>
 
-	<select id="querySimilar" parameterType="String" resultType="Position">
+	<select id="querySimilar" parameterType="String"
+		resultType="Position">
 		select * from
 		post
 		where name like #{name}
 	</select>
 
-	<select id="queryAllPositions" parameterType="Position" resultType="Position">
+	<select id="queryAllPositions" parameterType="Position"
+		resultType="Position">
 		select * from
 		post
 	</select>

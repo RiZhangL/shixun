@@ -11,7 +11,7 @@ public interface PositionMapper {
 
 	public void updatePosition(Position position);
 
-	public void deletePosition(String name);
+	public void deletePosition(int id);
 
 	public List<Position> querySimilar(String name);
 }

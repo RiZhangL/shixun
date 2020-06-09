@@ -4,15 +4,25 @@ public class Position {
 	private int id;
 	private String name;
 	private String info;
+	private String money;
 
 	public Position() {
 		super();
 	}
 
-	public Position(String name, String info) {
+	public Position(String name, String info, String money) {
 		super();
 		this.name = name;
 		this.info = info;
+		this.money = money;
+	}
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
 	}
 
 	public int getId() {
@@ -41,7 +51,7 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return "Position [id=" + id + ", name=" + name + ", info=" + info + "]";
+		return "Position [id=" + id + ", name=" + name + ", info=" + info + ", money=" + money + "]";
 	}
 
 }

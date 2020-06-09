@@ -10,11 +10,11 @@ public class Department {
 		super();
 	}
 
-	public Department(String name, String info, String id) {
+	public Department(String name, String info, String manager_id) {
 		super();
 		this.name = name;
 		this.info = info;
-		this.manager_id = id;
+		this.manager_id = manager_id;
 	}
 
 	public int getId() {

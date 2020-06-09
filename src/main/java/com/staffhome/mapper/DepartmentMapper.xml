@@ -6,13 +6,13 @@
 
 	<insert id="addDepartment" parameterType="Department">
 		insert into
-		department(name,info,manager_id) values(#{name},#{info},#{managerId})
+		department(name,info,manager_id) values(#{name},#{info},#{manager_id})
 	</insert>
 
-	<delete id="deleteDepartment" parameterType="String">
+	<delete id="deleteDepartment" parameterType="int">
 		delete from
 		department where
-		name=#{name}
+		id=#{id}
 	</delete>
 
 	<update id="updateDepertment" parameterType="department">

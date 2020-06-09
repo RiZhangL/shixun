@@ -35,8 +35,9 @@ public class DepartmentMapperServiceImlp implements DepartmentMapperService {
 		mapper.updateDepertment(department);
 	}
 
-	public void deleteDepartment(String name) {
+	public void deleteDepartment(String name1) {
 		// TODO Auto-generated method stub
+		int name = Integer.parseInt(name1);
 		mapper.deleteDepartment(name);
 	}
 

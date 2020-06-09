@@ -11,7 +11,7 @@ public interface DepartmentMapper {
 
 	public void updateDepertment(Department department);
 
-	public void deleteDepartment(String name);
+	public void deleteDepartment(int id);
 
 	public List<Department> querySimilar(String name);
 }

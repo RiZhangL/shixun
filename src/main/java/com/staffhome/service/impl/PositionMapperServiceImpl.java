@@ -30,9 +30,10 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 		mapper.updatePosition(position);
 	}
 
-	public void deletePosition(String name) {
+	public void deletePosition(String id_) {
 		// TODO Auto-generated method stub
-		mapper.deletePosition(name);
+		int id=Integer.parseInt(id_);
+		mapper.deletePosition(id);
 	}
 
 	public List<Position> querySimilar(String name) {
