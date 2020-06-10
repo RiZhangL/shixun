@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.staffhome.mapper.AnnouncementMapper">
+	<insert id="addAnnouncement" parameterType="Announcement">
+		insert into
+		announcement(title,introduction,time,content,creator_name,creator_id) values(#{title},#{introduction},#{time},#{content},#{creator_name},#{creator_id})
+	</insert>
+	
+	<select id="selectAllAnnouncement" resultType="Announcement">
+		select * from announcement;
+	</select>
+	
+	<select id="selectOneAnnouncement" parameterType="int" resultType="Announcement">
+		select * from announcement where id=#{id};
+	</select>
+	
+	<update id="updateAnnouncementById" parameterType="Announcement">
+		update announcement 
+		set
+		title=#{title},introduction=#{introduction},time=#{time},content=#{content},creator_name=#{creator_name},creator_id=#{creator_id} where
+		id=#{id} 
+	</update>
+	
+	<delete id="deleteOneAnnouncement" parameterType="int">
+		delete from
+		announcement  where
+		id=#{id}
+	</delete>
+	
+	<delete id="deleteAnnouncements" parameterType="list">
+		delete from
+		announcement  where
+		id in 
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

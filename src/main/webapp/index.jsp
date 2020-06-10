@@ -116,10 +116,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<p>公告管理</p> <i class="iconfont right">&#xe608;</i></a>
 						<ul class="menu2">
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('tgls/agent/agent_list.html', '公告管理,公告查询')"><i
+								href="javascript:menu_ajax('selectAllAnnoucement', '公告管理,公告查询')"><i
 									class="menua2_ico"><span></span></i>公告查询</a></li>
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('tgls/agent/agent_add.html', '公告管理,添加公告')"><i
+								href="javascript:menu_ajax('announcement/showAddNotice.html', '公告管理,添加公告')"><i
 									class="menua2_ico"><span></span></i>添加公告</a></li>
 						</ul></li>
 					<li class="menuli1"><a class="menua1"
