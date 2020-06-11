@@ -127,10 +127,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<p>下载中心</p> <i class="iconfont right">&#xe608;</i></a>
 						<ul class="menu2">
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('tgls/agent/agent_list.html', '下载中心,文档查询')"><i
+								href="javascript:menu_ajax('document/selectAllDoc', '下载中心,文档查询')"><i
 									class="menua2_ico"><span></span></i>文档查询</a></li>
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('tgls/agent/agent_add.html', '下载中心,上传文档')"><i
+								href="javascript:menu_ajax('document/addDoc_pre', '下载中心,上传文档')"><i
 									class="menua2_ico"><span></span></i>上传文档</a></li>
 						</ul></li>
 				</ul>
