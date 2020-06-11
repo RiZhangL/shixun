@@ -35,6 +35,10 @@
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function deleteAnn(){
+		
+			if (!confirm("您将删除这些公告!")) {
+			    return;
+			  } 
 			var items = document.getElementsByName("Isdelete");
 			var arr = "";
 			for (i = 0; i < items.length; i++) {                    
@@ -73,14 +77,15 @@
 
 </head>
 <body>
-	<!-- 导航 -->
 	
-	<table width="100%" height="90%" border="0" cellpadding="5"
+	<table width="98%" height="90%" border="0" cellpadding="5" align="center"
 		cellspacing="0" class="main_tabbor">
+		<tr height="20">
+		</tr>
 		<!-- 查询区  -->
 		<tr valign="top">
-			<td height="30">
-				<table width="100%" border="0" cellpadding="0" cellspacing="10"
+			<td height="50">
+				<table width="100%" border="0" cellpadding="0" cellspacing="10" 
 					class="main_tab">
 					<tr>
 						<td class="fftd">
@@ -89,8 +94,8 @@
 								<form action="querySimilar" method="post">
 									<tr>
 										<td class="font3">公告标题：<input type="text" name="name">
-											<input type="submit" value="搜索" />
-											<input type="button" onclick="deleteAnn()" value="删除"/>
+											<input type="submit" class="btn btn-primary" value="搜索" />
+											<input type="button" class="btn btn-danger" onclick="deleteAnn()" value="删除"/>
 										</td>
 									</tr>
 								</form>
@@ -105,10 +110,9 @@
 		<!-- 数据展示区 -->
 		<tr valign="top">
 			<td height="20">
-				<table class="table table-hover" width="100%" border="1" cellpadding="5" cellspacing="0">
+				<table class="table table-hover" width="100%" >
 					<tbody>
-						<tr class="main_trbg_tit" align="center"
-							style="background-color: rgb(169, 169, 169);">
+						<tr class="success" align="center">
 							<td>
 								<input type="button" onclick="selectAll()" value="全选"/>
 							</td>
@@ -123,18 +127,18 @@
 						<c:forEach items="${list}" var="item" varStatus="xh">
 							<tr id="data_0" align="center">
 								<td>
-									<p><input type="checkbox" name="Isdelete" value="${xh.count}" /></p>
+									<p><input type="checkbox" name="Isdelete" value="${item.id}" /></p>
 								</td>
 								<td>${item.title}</td>
 								<td>${item.introduction}</td>
 								<td>${item.creator_name}</td>
 								<td>${item.time}</td>
-								<td align="center" width="40px;"><a href="updateAnnoucement?id=${xh.count}">
+								<td align="center" width="40px;"><a href="updateAnnoucement?id=${item.id}">
 									<button type="button" class="btn btn-default">
 										<span class="glyphicon glyphicon-pencil"></span>
 									</button>
 							    </td>
-							    <td align="center" width="40px;"><a href="#" id="prev_19">
+							    <td align="center" width="40px;"><a href="preview?id=${item.id}" id="prev_${item.id}">
 									<button type="button" class="btn btn-default">
 										<span class="glyphicon glyphicon-search"></span>
 									</button>
