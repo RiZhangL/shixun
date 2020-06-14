@@ -37,4 +37,12 @@
 			#{item}
 		</foreach>
 	</delete>
+	
+	<select id="selectBytitle" resultType="Announcement" parameterType="String">
+		select * from announcement where title like #{title};
+	</select>
+	
+	<select id="selectByCreator" resultType="Announcement" parameterType="String">
+		select * from announcement where creator_name=#{creator_name};
+	</select>
 </mapper>

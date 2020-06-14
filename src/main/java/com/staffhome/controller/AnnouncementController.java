@@ -108,4 +108,28 @@ public class AnnouncementController {
 		return mav;
 	}
 	
+	@RequestMapping("search")
+	@ResponseBody
+	public ModelAndView  search(HttpServletRequest request) {
+		String queryAttr=request.getParameter("queryAttr");
+		String content=request.getParameter("content");
+		List<Announcement> announcements;
+		ModelAndView mav = new ModelAndView();
+		if(content.length()==0) {
+			announcements=announcementService.selectAllAnnoucement();
+		}else {
+			if(queryAttr.equals("title")) {
+				content="%"+content+"%";
+				announcements=announcementService.selectBytitle(content);
+			}else {
+				announcements=announcementService.selectByCreator(content);
+			}
+		}
+		mav.addObject("list", announcements);
+		mav.addObject("number", announcements.size());
+		mav.addObject("minist", announcements.size() == 0 ? 0 : 1);
+		mav.setViewName("/announcement/search.jsp");
+		return mav;
+	}
+	
 }

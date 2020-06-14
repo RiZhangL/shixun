@@ -44,6 +44,18 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService{
 		// TODO Auto-generated method stub
 		return mapper.selectOneAnnouncement(id);
 	}
+
+	@Override
+	public List<Announcement> selectBytitle(String title) {
+		// TODO Auto-generated method stub
+		return mapper.selectBytitle(title);
+	}
+
+	@Override
+	public List<Announcement> selectByCreator(String creator_name) {
+		// TODO Auto-generated method stub
+		return mapper.selectByCreator(creator_name);
+	}
 	
 
 }

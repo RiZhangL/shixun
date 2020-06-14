@@ -16,4 +16,9 @@ public interface AnnouncementMapper {
 	public void deleteOneAnnouncement(int id);
 	
 	public void deleteAnnouncements(List<Integer> list);
+	
+	public List<Announcement> selectBytitle(String title);
+	
+	public List<Announcement> selectByCreator(String creator_name);
+	
 }

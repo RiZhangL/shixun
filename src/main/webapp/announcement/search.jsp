@@ -78,7 +78,7 @@
 		var item = document.getElementById("queryAttribute");
 		var queryAttribute=item.options[item.selectedIndex].value;
 		var queryText = document.getElementById("queryText").value;
-
+		
 		var temp = document.createElement("form");
 		temp.action = "http://localhost:8080/staffhome/search";
 		temp.method = "post";
@@ -94,8 +94,6 @@
 		document.body.appendChild(temp);
 		temp.submit(); 
 		return;
-		
-
 	}
 </script>
 
