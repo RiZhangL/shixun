@@ -29,15 +29,15 @@ public class AnnouncementController {
 	public ModelAndView addAnnouncement(HttpServletRequest request) {
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
+		String introduction=request.getParameter("introduction");
 		java.util.Date utildate=new java.util.Date();
 		Date date=new Date(utildate.getTime());
 		Announcement announcement=new Announcement();
 		announcement.setTitle(title);
 		announcement.setContent(content);
 		announcement.setTime(date);
+		announcement.setIntroduction(introduction);
 		announcementService.addAnnoucement(announcement);
-		System.out.println(title);
-		System.out.println(content);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/selectAllAnnoucement");
 		return mav;
@@ -68,18 +68,17 @@ public class AnnouncementController {
 	public ModelAndView  updateAnn2(HttpServletRequest request) {
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
+		String introduction=request.getParameter("introduction");
 		int id=Integer.parseInt(request.getParameter("id"));
 		java.util.Date utildate=new java.util.Date();
 		Date date=new Date(utildate.getTime());
 		Announcement announcement=new Announcement();
+		announcement.setIntroduction(introduction);
 		announcement.setId(id);
 		announcement.setTitle(title);
 		announcement.setContent(content);
 		announcement.setTime(date);
 		announcementService.updateAnnoucement(announcement);
-		System.out.println(id);
-		System.out.println(title);
-		System.out.println(content);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/selectAllAnnoucement");
 		return mav;
@@ -99,5 +98,38 @@ public class AnnouncementController {
 		return mav;
 	}
 	
+	@RequestMapping("preview")
+	public ModelAndView  preview(int id) {
+		System.out.println("接受id:"+id);
+		Announcement announcement=announcementService.selectOneAnnouncement(id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("announcement",announcement);
+		mav.setViewName("/announcement/previewAnnouncement.jsp");
+		return mav;
+	}
+	
+	@RequestMapping("search")
+	@ResponseBody
+	public ModelAndView  search(HttpServletRequest request) {
+		String queryAttr=request.getParameter("queryAttr");
+		String content=request.getParameter("content");
+		List<Announcement> announcements;
+		ModelAndView mav = new ModelAndView();
+		if(content.length()==0) {
+			announcements=announcementService.selectAllAnnoucement();
+		}else {
+			if(queryAttr.equals("title")) {
+				content="%"+content+"%";
+				announcements=announcementService.selectBytitle(content);
+			}else {
+				announcements=announcementService.selectByCreator(content);
+			}
+		}
+		mav.addObject("list", announcements);
+		mav.addObject("number", announcements.size());
+		mav.addObject("minist", announcements.size() == 0 ? 0 : 1);
+		mav.setViewName("/announcement/search.jsp");
+		return mav;
+	}
 	
 }

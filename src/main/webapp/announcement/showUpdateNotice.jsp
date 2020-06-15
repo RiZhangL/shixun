@@ -21,12 +21,20 @@
 		<script src="../js/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 		<script src="../js/ligerUI/js/plugins/ligerResizable.js" type="text/javascript"></script>
 		<link href="../css/pager.css" type="text/css" rel="stylesheet" />
+		<!-- 引入bootstrap样式 -->
+		<link href="../static/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="../static/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 		<script type="text/javascript">
 
 			function submit(){
 					var errorMsg='';
 					var title=document.getElementById("title").value;
 					var content=document.getElementById("content").value;
+					var introduction=document.getElementById("introduction").value;
 					var id=document.getElementById("content").getAttribute("name");
 					title=title.trim()
 					content=content.trim();
@@ -34,6 +42,8 @@
 						errorMsg="标题不能为空";
 					}else if(content==''){
 						errorMsg="内容不能为空";
+					}else if(introduction==''){
+						errorMsg="介绍不能为空";
 					}
 					if(errorMsg!=''){
 						alert(errorMsg);
@@ -55,12 +65,26 @@
 						opt3.name="id";
 						opt3.value=id;
 						temp.appendChild(opt3);
+						var opt4 = document.createElement("textarea");
+						opt4.name="introduction";
+						opt4.value=introduction;
+						temp.appendChild(opt4);
 						document.body.appendChild(temp);
 						temp.submit(); 
 						return;  
 					}
 
 			    }
+
+		    function back(){
+		    	var temp = document.createElement("form");
+		    	temp.action = "http://localhost:8080/staffhome/selectAllAnnoucement";
+		    	temp.method = "post";
+		    	temp.style.display = "none";
+		    	document.body.appendChild(temp);
+		    	temp.submit(); 
+		    	return;
+			}
 		</script>
 	</head>
 	<body>
@@ -74,21 +98,36 @@
     	 			<input type="hidden" name="flag" value="2">
     	 			<input type="hidden" name="id" value="${notice.id }">
 				  <table width="100%" border="0" cellpadding="0" cellspacing="10" class="main_tab">
-					    <tr><td class="font3 fftd">
+				  		<tr height="20">
+				  		</tr>
+					    <tr><td class="font3 fftd" align="center">
 					                公告标题：<input type="text" name="title" size="30" id="title" value="${announcement.title}"/>
 					    	  <span style="color: #ff0000;"></span>
 					    	</td>
 					    </tr>
 						<tr><td class="main_tdbor"></td></tr>
+						<tr height="20">
+				  		</tr>
 						
-						<tr><td class="font3 fftd">公告内容：<br/>
+						<tr><td class="font3 fftd" align="center">
+					                公告介绍：<input type="text" name="introduction" size="30" id="introduction" value="${announcement.introduction}"/>
+					    	  <span style="color: #ff0000;"></span>
+					    	</td>
+					    </tr>
+						<tr><td class="main_tdbor"></td></tr>
+						<tr height="20">
+				  		</tr>
+						
+						<tr><td class="font3 fftd" align="center">公告内容：<br/>
 							<textarea name="${announcement.id}" cols="88" rows="11" id="content" >${announcement.content}</textarea>
 						</td></tr>
 						<tr><td class="main_tdbor"></td></tr>
+						<tr height="20">
+				  		</tr>
 						
-						<tr><td class="font3 fftd">
-								<input type="button" onclick="submit()" value="修改">
-								<input type="reset" value="重置">
+						<tr><td class="font3 fftd" align="center">
+								<input type="button" class="btn btn-success " onclick="submit()" value="确认修改" style="margin-right:30">
+								<input type="button" class="btn btn-default " onclick="back()" value="取消修改">
 						</td></tr>
 						<tr><td class="main_tdbor"></td></tr>
 					
