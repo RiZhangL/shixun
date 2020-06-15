@@ -64,6 +64,8 @@
 										size="20" />
 								</tr>
 								<tr>
+									<td align="left" class="fftd">
+									<input type="submit"
 										onclick="submit()" value="修改">&nbsp;&nbsp;<input
 										type="reset" value="取消 "></td>
 								</tr>

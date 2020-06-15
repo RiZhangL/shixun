@@ -27,7 +27,11 @@
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="root" />
+<<<<<<< HEAD
 		<property name="password" value="Liu980511" />
+=======
+		<property name="password" value="123456" />
+>>>>>>> d931dc23fdf0150ff425e8a05c340cd9292ac359
 	</bean>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
