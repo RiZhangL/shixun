@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,9 +24,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.staffhome.pojo.Announcement;
 import com.staffhome.pojo.Department;
 import com.staffhome.pojo.Document;
 import com.staffhome.service.impl.DepartmentMapperServiceImlp;
@@ -58,21 +61,32 @@ public class DocumentController {
 	@RequestMapping(value = "/addDoc_pre")
 	public ModelAndView addDoc_pre() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/WEB-INF/webcontent/uploadDoc.jsp");
+		mav.setViewName("/document/AddDoc.html");
 		return mav;
 	}
 
-	@RequestMapping(value = "/selectDocument")
-	public ModelAndView selectDocument(String name) {
-		List<Document> documents = service.selectDocument(name);
-		for (Document c : documents)
-			System.out.println(c);
-		ModelAndView view = new ModelAndView();
-		view.addObject("list", documents);
-		view.addObject("number", documents.size());
-		view.addObject("minist", documents.size() == 0 ? 0 : 1);
-		view.setViewName("/WEB-INF/webcontent/querySimilarDoc.jsp");
-		return view;
+	@RequestMapping("/selectDocument")
+	@ResponseBody
+	public ModelAndView  search(HttpServletRequest request) {
+		String queryAttr=request.getParameter("queryAttr");
+		String content=request.getParameter("content");
+		List<Document> documents;
+		ModelAndView mav = new ModelAndView();
+		if(content.length()==0) {
+			documents=service.selectAllDoc();
+		}else {
+			if(queryAttr.equals("title")) {
+				content="%"+content+"%";
+				documents=service.selectDocument(content);
+			}else {
+				documents=service.selectDocumentuser(content);
+			}
+		}
+		mav.addObject("list", documents);
+		mav.addObject("number", documents.size());
+		mav.addObject("minist", documents.size() == 0 ? 0 : 1);
+		mav.setViewName("/document/document.jsp");
+		return mav;
 	}
 
 	@RequestMapping(value = "/selectAllDoc")
@@ -84,7 +98,7 @@ public class DocumentController {
 		mav.addObject("list", documents);
 		mav.addObject("number", documents.size());
 		mav.addObject("minist", documents.size() == 0 ? 0 : 1);
-		mav.setViewName("/WEB-INF/webcontent/document.jsp");
+		mav.setViewName("/document/document.jsp");
 		return mav;
 	}
 	
@@ -93,34 +107,34 @@ public class DocumentController {
 		Document document = new Document(id, title, filename, remark, create_date, user_id);
 		ModelAndView view = new ModelAndView();
 		view.addObject("document", document);
-		view.setViewName("/WEB-INF/webcontent/updateDoc.jsp");
+		view.setViewName("/document/UpdateDoc.jsp");
 		return view;
 	}
 	
 	@RequestMapping(value="/updateDoc", method=RequestMethod.POST)
-	public String updateDoc(int id,String title, String remark,String create_date, String user_id,MultipartFile file, Model model) throws IOException{
-		InputStream inputStream = file.getInputStream();
-		File saveFile = new File("D:/file/" + file.getOriginalFilename());
-		FileOutputStream fosFileOutputStream = new FileOutputStream(saveFile);
-		IOUtils.copy(inputStream, fosFileOutputStream);
-		inputStream.close();
-		fosFileOutputStream.close();
-		System.out.println("--");
-		System.out.println(id);
-		System.out.println("--");
-		Document document = new Document(id, title, file.getOriginalFilename(), remark, create_date, user_id);
+	public String updateDoc(int id,String title, String remark,String create_date, String user_id,String filename, Model model) throws IOException{
+		Document document = new Document(id, title, filename, remark, create_date, user_id);
 		service.updateDoc(document);
 		return "selectAllDoc";
 	}
 	
 	@RequestMapping("/deleteDoc")
-	public String deleteDoc(int id,String filename) {
-		File file = new File("D:/file/" + filename);// ∂¡»°
-		if(file.isFile()){
-			file.delete();
-			service.deleteDoc(id);
+	public ModelAndView deleteDoc(HttpServletRequest request) {
+		System.out.println(request.getParameter("deleteIds"));
+		String[] idStrings=request.getParameter("deleteIds").split(",");
+		List<Integer> deleList=new ArrayList<Integer>();
+		for(int i=0;i<idStrings.length;i++) {
+			deleList.add(Integer.parseInt(idStrings[i]));
+			String filename = service.selectDocumentid(idStrings[i]).getFilename();
+			File file = new File("D:/file/" + filename);// ∂¡»°
+			if(file.isFile()){
+				file.delete();
+			}
 		}
-		return "selectAllDoc";
+		service.deleteDoc(deleList);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/document/selectAllDoc");
+		return mav;
 	}
 	
 	@RequestMapping(value="/downloadDoc",method=RequestMethod.GET)

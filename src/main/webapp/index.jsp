@@ -69,13 +69,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<p>后台主页</p></a></li>
 					<li class="menuli1"><a class="menua1"
 						href="javascript:void(0)"><i class="iconfont left">&#xe697;</i>
-							<p>用户管理</p> <i class="iconfont right">&#xe608;</i></a>
+							<p>用户管理</p>
+							<i class="iconfont right">&#xe608;</i></a>
 						<ul class="menu2">
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('<%=basePath%>./WEB-INF/webcontent/selectUser.jsp', '用户管理,用户查询')"><i
+								href="javascript:menu_ajax('<%=basePath%>user/getAllEmp', '用户管理,用户查询')"><i
 									class="menua2_ico"><span></span></i>用户查询</a></li>
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('<%=basePath%>./WEB-INF/webcontent/addUser.jsp', '用户管理,添加用户')"><i
+								href="javascript:menu_ajax('<%=basePath%>user/getDep', '用户管理,添加用户')"><i
 									class="menua2_ico"><span></span></i>添加用户</a></li>
 						</ul></li>
 					<li class="menuli1"><a class="menua1"
@@ -105,10 +106,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<p>员工管理</p> <i class="iconfont right">&#xe608;</i></a>
 						<ul class="menu2">
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('tgls/agent/agent_list.html', '员工管理,员工查询')"><i
+								href="javascript:menu_ajax('employee/selectAllEmployee', '员工管理,员工查询')"><i
 									class="menua2_ico"><span></span></i>员工查询</a></li>
 							<li class="menuli2"><a class="menua2"
-								href="javascript:menu_ajax('tgls/agent/agent_add.html', '员工管理,添加员工')"><i
+								href="javascript:menu_ajax('addEmployee.jsp', '员工管理,添加员工')"><i
 									class="menua2_ico"><span></span></i>添加员工</a></li>
 						</ul></li>
 					<li class="menuli1"><a class="menua1"

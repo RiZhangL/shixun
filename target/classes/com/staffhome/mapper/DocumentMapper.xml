@@ -9,10 +9,13 @@
 		document(title,filename,remark,create_date,user_id) values(#{title},#{filename},#{remark},#{create_date},#{user_id})
 	</insert>
 
-	<delete id="deleteDocument" parameterType="int">
+	<delete id="deleteDocument" parameterType="list">
 		delete from
-		document where
-		id=#{id}
+		document  where
+		id in 
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
 	</delete>
 
 	<update id="updateDocument" parameterType="document">
@@ -30,6 +33,18 @@
 	<select id="selectDocument" parameterType="String" resultType="document">
 		select * from
 		document
-		where title=#{title}
+		where title like #{title}
+	</select>
+	
+	<select id="selectDocumentid" parameterType="String" resultType="document">
+		select * from
+		document
+		where id=#{id}
+	</select>
+	
+	<select id="selectDocumentuser" parameterType="String" resultType="document">
+		select * from
+		document
+		where user_id=#{user_id}
 	</select>
 </mapper>

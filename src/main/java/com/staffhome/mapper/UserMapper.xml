@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.staffhome.mapper.UserMapper">
+
+	<insert id="addEmp" parameterType="User">
+		insert into user(id, name, password, state, creation_time, emp_id)
+		values (0, #{name}, #{password}, #{state}, #{creation_time}, #{emp_id});
+	</insert>
+	
+	<select id="getDep" resultType="GetDep">
+		select id, name from department;
+	</select>
+	
+	<select id="getPos" resultType="GetPos">
+		select id, name from post;
+	</select>
+	
+	<select id="getAllEmp" resultType="SelectUser">
+		select user.id as id, user.name as name,
+		user.password as password,
+		user.state as state,
+		user.creation_time as creation_time,
+		employee.name as emp_name
+		from user, employee
+		where user.emp_id = employee.id;
+		
+	</select>
+	
+	<select id="idToName" parameterType="int" resultType="String">
+		select name from employee where id = #{emp_id}
+	</select>
+	
+	<select id="idToUsername" parameterType="int" resultType="String">
+		select name from user where id = #{id}
+	</select>
+	<select id="idToEmpId" parameterType="int" resultType="int">
+		select emp_id from user where id = #{id}
+	</select>
+	
+	<delete id="deleteEmp" parameterType="int">
+		delete from user where id = #{id};
+	</delete>
+	
+	<update id="changeEmp" parameterType="user">
+		update user
+		set name=#{name}, password=#{password}, emp_id = #{emp_id}
+		where id=#{id};
+	</update>
+	
+	<select id="getEmpById" parameterType="int" resultType="user">
+		select * from user where id=#{id};
+	</select>
+	
+	<update id="freezeEmp" parameterType="int">
+		update user
+		set state="冻结"
+		where id=#{id};
+	</update>
+	
+	<update id="unfreezeEmp" parameterType="int">
+		update user
+		set state="正常"
+		where id=#{id};
+	</update>
+	
+	<select id="selectEmp" resultType="selectEmp">
+		select id, name
+		from employee
+	</select>
+
+
+
+</mapper>

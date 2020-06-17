@@ -31,14 +31,28 @@ public class DocumentMapperServiceImpl implements DocumentMapperService{
 		mapper.updateDocument(document);
 	}
 
-	public void deleteDoc(int id) {
+	public void deleteDoc(List<Integer> list) {
 		// TODO Auto-generated method stub
-		mapper.deleteDocument(id);
+		mapper.deleteDocument(list);
 	}
 
 	public List<Document> selectAllDoc() {
 		// TODO Auto-generated method stub
 		List<Document> documents = mapper.selectAllDocuments();
+		return documents;
+	}
+
+	@Override
+	public Document selectDocumentid(String title) {
+		// TODO Auto-generated method stub
+		Document document = mapper.selectDocumentid(title);
+		return document;
+	}
+
+	@Override
+	public List<Document> selectDocumentuser(String title) {
+		// TODO Auto-generated method stub
+		List<Document> documents = mapper.selectDocumentuser(title);
 		return documents;
 	}
 

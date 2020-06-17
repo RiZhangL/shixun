@@ -11,7 +11,11 @@ public interface DocumentMapperService {
 	
 	public void updateDoc(Document document);
 	
-	public void deleteDoc(int id);
+	public void deleteDoc(List<Integer> list);
 
 	public List<Document> selectAllDoc();
+	
+	public Document selectDocumentid(String title);
+	
+	public List<Document> selectDocumentuser(String title);
 }
